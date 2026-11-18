@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#31205d" />
+    <meta name="description" content="Dashboard kewangan interaktif gerai Puteri Slayy, Hari Kokurikulum SMKBBSL 2026." />
+    <title>Puteri Slayy | Dashboard Kewangan Gerai</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">✦</div>
+          <div>
+            <div class="brand-name">PUTERI <span>SLAYY</span></div>
+            <div class="brand-sub">PPIM · SMKBBSL</div>
+          </div>
+        </div>
+
+        <p class="sidebar-label">MENU UTAMA</p>
+        <nav class="navigation" aria-label="Navigasi dashboard">
+          <button class="nav-link active" data-tab="overview"><span class="nav-symbol">◈</span> Ringkasan</button>
+          <button class="nav-link" data-tab="sales"><span class="nav-symbol">▤</span> Rekod Jualan</button>
+          <button class="nav-link" data-tab="expenses"><span class="nav-symbol">▦</span> Perbelanjaan</button>
+          <button class="nav-link" data-tab="capital"><span class="nav-symbol">♧</span> Sumber Modal</button>
+          <button class="nav-link" data-tab="reports"><span class="nav-symbol">↗</span> Laporan & Eksport</button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="side-orbit">✧ <span>🍜</span> ✧</div>
+          <strong>Made for Puteri Islam</strong>
+          <small>Hari Kokurikulum<br />19 November 2026</small>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div class="mobile-brand"><span>✦</span> PUTERI <b>SLAYY</b></div>
+          <div class="topbar-left">
+            <span class="event-dot"></span>
+            <span>Gerai No. 2</span>
+            <span class="topbar-divider"></span>
+            <span>Hari Kokurikulum 2026</span>
+          </div>
+          <div class="topbar-right">
+            <span class="save-status" id="save-status"><span class="status-dot"></span> Disimpan di peranti</span>
+            <div class="avatar" title="Puteri Slayy">PS</div>
+          </div>
+        </header>
+
+        <nav class="mobile-navigation" aria-label="Navigasi mudah alih">
+          <button class="mobile-nav-link active" data-tab="overview">Ringkasan</button>
+          <button class="mobile-nav-link" data-tab="sales">Jualan</button>
+          <button class="mobile-nav-link" data-tab="expenses">Kos</button>
+          <button class="mobile-nav-link" data-tab="capital">Modal</button>
+          <button class="mobile-nav-link" data-tab="reports">Laporan</button>
+        </nav>
+
+        <main class="main-content">
+          <section id="panel-overview" class="tab-panel">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">PUSAT KAWALAN KEWANGAN</span>
+                <h1>Selamat datang, <em>Puteri Slayy!</em> ✨</h1>
+                <p>Pantau modal, hasil jualan dan keuntungan gerai — semuanya dikira secara automatik.</p>
+              </div>
+              <div class="mode-switch" role="group" aria-label="Mod pengiraan">
+                <button data-mode="projection" class="selected">Unjuran</button>
+                <button data-mode="actual">Sebenar</button>
+              </div>
+            </div>
+
+            <div class="welcome-banner">
+              <div class="welcome-copy">
+                <span class="banner-pill">✦ CHEESY RAMEN NACHOS</span>
+                <h2>Sedapnya untung,<br />manisnya usaha.</h2>
+                <p>Setiap jualan menyumbang 60% keuntungan kepada sekolah dan 40% kepada simpanan.</p>
+              </div>
+              <div class="banner-art" aria-hidden="true">
+                <span class="sparkle sparkle-one">✦</span>
+                <span class="food-art">🍜</span>
+                <span class="sparkle sparkle-two">✳</span>
+                <span class="mini-food">🧀</span>
+              </div>
+            </div>
+
+            <div class="stat-grid" id="summary-stats"></div>
+            <div id="data-alerts"></div>
+
+            <div class="dashboard-grid">
+              <div class="panel-card">
+                <div class="card-heading"><div><h3>Prestasi jualan</h3><p>Ringkasan mengikut menu</p></div><span class="card-icon">▤</span></div>
+                <div id="overview-products"></div>
+              </div>
+              <div class="panel-card">
+                <div class="card-heading"><div><h3>Agihan keuntungan</h3><p>Selepas semua kos ditolak</p></div><span class="card-icon">✦</span></div>
+                <div id="profit-distribution"></div>
+              </div>
+            </div>
+
+            <div class="panel-card quick-panel">
+              <div class="card-heading"><div><h3>Jualan pantas ⚡</h3><p>Tekan +1 setiap kali pelanggan membeli</p></div><button class="text-button" data-tab="sales">Lihat rekod penuh ↗</button></div>
+              <div class="quick-sales" id="quick-sales"></div>
+            </div>
+          </section>
+
+          <section id="panel-sales" class="tab-panel" hidden>
+            <div class="page-heading">
+              <div><span class="eyebrow">OPERASI HARI JUALAN</span><h1>Rekod <em>jualan</em> 🍜</h1><p>Ubah harga, sasaran dan kuantiti terjual. Jumlah jualan serta untung dikira terus.</p></div>
+              <button class="primary-button" id="add-product-button">+ Tambah menu</button>
+            </div>
+            <div class="stat-grid compact" id="sales-stats"></div>
+            <div class="panel-card table-card"><div class="card-heading"><div><h3>Senarai menu & jualan</h3><p>Medan kuantiti terjual ialah rekod jualan sebenar.</p></div></div><div class="table-scroll" id="sales-table"></div></div>
+            <div class="panel-card" id="sales-analysis"></div>
+          </section>
+
+          <section id="panel-expenses" class="tab-panel" hidden>
+            <div class="page-heading">
+              <div><span class="eyebrow">PENGURUSAN INVENTORI</span><h1>Rekod <em>perbelanjaan</em> 🧾</h1><p>Key-in kos sebenar setiap barang. Kos menu dan margin untung akan dikemas kini.</p></div>
+              <button class="primary-button" id="add-expense-button">+ Tambah barang</button>
+            </div>
+            <div class="stat-grid compact" id="expense-stats"></div>
+            <div id="expense-groups"></div>
+          </section>
+
+          <section id="panel-capital" class="tab-panel" hidden>
+            <div class="page-heading">
+              <div><span class="eyebrow">PENGURUSAN SUMBANGAN</span><h1>Sumber <em>modal</em> 💜</h1><p>Semak sumbangan setiap penyumbang dan baki selepas perbelanjaan.</p></div>
+              <button class="primary-button" id="add-contributor-button">+ Tambah penyumbang</button>
+            </div>
+            <div class="stat-grid compact" id="capital-stats"></div>
+            <div class="panel-card table-card"><div class="card-heading"><div><h3>Senarai penyumbang</h3><p>Modal dipulangkan sebelum keuntungan diagihkan.</p></div></div><div class="table-scroll" id="contributors-table"></div></div>
+            <div class="panel-card" id="capital-analysis"></div>
+          </section>
+
+          <section id="panel-reports" class="tab-panel" hidden>
+            <div class="page-heading"><div><span class="eyebrow">LAPORAN KEWANGAN</span><h1>Laporan & <em>eksport</em> 📊</h1><p>Sediakan laporan untuk WhatsApp dan sandaran data gerai.</p></div></div>
+            <div class="report-grid">
+              <div class="panel-card">
+                <div class="card-heading"><div><h3>Dasar agihan keuntungan</h3><p>Laraskan peratus sumbangan sekolah</p></div><span class="card-icon">%</span></div>
+                <div class="setting-slider"><label for="school-share">Sekolah <strong id="school-percent">60%</strong></label><input type="range" id="school-share" min="0" max="100" step="1" value="60" /><div class="slider-ends"><span>0%</span><span>100%</span></div></div>
+                <div id="report-distribution"></div>
+              </div>
+              <div class="panel-card">
+                <div class="card-heading"><div><h3>Eksport & sandaran</h3><p>Data tersimpan automatik dalam pelayar ini</p></div><span class="card-icon">↗</span></div>
+                <div class="export-actions">
+                  <button id="copy-whatsapp" class="action-button"><span>💬</span><span><b>Salin laporan WhatsApp</b><small>Ringkasan lengkap dengan agihan</small></span><span>↗</span></button>
+                  <button id="download-csv" class="action-button"><span>📄</span><span><b>Muat turun CSV</b><small>Kos, jualan dan modal</small></span><span>↓</span></button>
+                  <button id="download-backup" class="action-button"><span>💾</span><span><b>Sandaran data JSON</b><small>Pindah data ke peranti lain</small></span><span>↓</span></button>
+                  <label for="import-backup" class="action-button"><span>📥</span><span><b>Import sandaran JSON</b><small>Pulihkan rekod yang disimpan</small></span><span>↗</span></label>
+                  <input id="import-backup" type="file" accept="application/json,.json" hidden />
+                </div>
+              </div>
+            </div>
+            <div class="panel-card">
+              <div class="card-heading"><div><h3>Pratonton laporan WhatsApp</h3><p>Pilih mod unjuran atau jualan sebenar melalui butang di Ringkasan</p></div><button class="subtle-button" id="copy-report-inline">Salin teks</button></div>
+              <pre class="report-preview" id="report-preview"></pre>
+            </div>
+            <div class="danger-section"><div><strong>Set semula semua data</strong><p>Memulihkan modal, harga dan stok asal. Tindakan ini tidak boleh dibatalkan tanpa sandaran.</p></div><button id="reset-data" class="danger-button">Set semula</button></div>
+          </section>
+          <footer>✦ Puteri Slayy · PPIM SMK Bandar Baru Sungai Lalang · 2026</footer>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="entry-dialog" class="entry-dialog">
+      <form id="entry-form" method="dialog">
+        <div class="dialog-heading"><h3 id="dialog-title">Tambah rekod</h3><button type="button" class="icon-button" id="close-dialog" aria-label="Tutup">×</button></div>
+        <div id="entry-fields"></div>
+        <div class="dialog-actions"><button type="button" class="subtle-button" id="cancel-dialog">Batal</button><button class="primary-button" type="submit">Simpan</button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
